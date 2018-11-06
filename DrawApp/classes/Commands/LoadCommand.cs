@@ -14,87 +14,79 @@ namespace DrawApp.classes
     {
         public bool IsCompleted { get; set; }
         private List<string> ReadedLines { get; set; }
+        private List<ShapeComponent> LoadedShapes { get; set; }
 
         public void Execute(InternalCanvas canvas)
         {
+            LoadedShapes = new List<ShapeComponent>();
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-            List<ShapeComponent> loadedshapes = new List<ShapeComponent>();
             if (openFileDialog.ShowDialog() == true)
             {
                 string fileContent = File.ReadAllText(openFileDialog.FileName);
                 ReadedLines = FileContentToList(fileContent);
-                while (ReadedLines.Count > 0)
-                {
-                    List<string> splittedLine = ReadedLines.First().Split(' ').ToList();
-                    ReadedLines.Remove(ReadedLines.First());
-                    if (splittedLine.First() == "group")
-                    {
-                        loadedshapes.Add(GetGroup(3));
-                    }
-                    else if (splittedLine.First() == "ellipse" || splittedLine.First() == "rectangle")
-                    {
-                        InternalShape loadedshape = GetShape(0, splittedLine);
-                        loadedshapes.Add(loadedshape);
-                    }
-                }
+                LoadedShapes = ReadedLinesToShapes();
             }
             canvas.Reset();
-            foreach (ShapeComponent loadedshape in loadedshapes)
+            foreach (ShapeComponent loadedshape in LoadedShapes)
             {
                 canvas.AddShape(loadedshape);
             }
             IsCompleted = true;
         }
 
-        private static InternalShape GetShape(int newspacecount, List<string> splittedLine)
-        {
-            InternalShape loadedshape;
-            if (splittedLine[newspacecount] == "ellipse")
-            {
-                loadedshape = new InternalShape(InternalEllipse.getInstance());
-                //loadedshape = new InternalEllipse();
-                loadedshape.Location = new Point(Convert.ToDouble(splittedLine[newspacecount + 1]), Convert.ToDouble(splittedLine[newspacecount + 2]));
-                loadedshape.Width = Convert.ToDouble(splittedLine[newspacecount + 3]);
-                loadedshape.Height = Convert.ToDouble(splittedLine[newspacecount + 4]);
-                return loadedshape;
-            }
-            else if (splittedLine[newspacecount] == "rectangle")
-            {
-                loadedshape = new InternalShape(InternalRectangle.getInstance());
-                //loadedshape = new InternalRectangle();
-                loadedshape.Location = new Point(Convert.ToDouble(splittedLine[newspacecount + 1]), Convert.ToDouble(splittedLine[newspacecount + 2]));
-                loadedshape.Width = Convert.ToDouble(splittedLine[newspacecount + 3]);
-                loadedshape.Height = Convert.ToDouble(splittedLine[newspacecount + 4]);
-                return loadedshape;
-            }
-            //loadedshape.Location = new Point(Convert.ToDouble(splittedLine[newspacecount + 1]), Convert.ToDouble(splittedLine[newspacecount + 2]));
-            //loadedshape.Width = Convert.ToDouble(splittedLine[newspacecount + 3]);
-            //loadedshape.Height = Convert.ToDouble(splittedLine[newspacecount + 4]);
-            return null;
-        }
-
-        public ShapeGroup GetGroup(int originalspacecount)
+        private ShapeGroup GetGroup(int spaces)
         {
             ShapeGroup newgroup = new ShapeGroup();
-            int newspacecount = originalspacecount;
-            while (originalspacecount <= newspacecount && ReadedLines.Count > 0)
+            List<ShapeComponent> loadedgroupshapes = ReadedLinesToShapes(spaces);
+            foreach (ShapeComponent groupitem in loadedgroupshapes)
             {
-                List<string> splittedLine = ReadedLines.First().Split(' ').ToList();
-                ReadedLines.Remove(ReadedLines.First());
-                if (splittedLine[newspacecount] == "group")
-                {
-                    newgroup.Add(GetGroup(newspacecount + 3));
-                }
-                else if (splittedLine[newspacecount] == "ellipse" || splittedLine[newspacecount] == "rectangle")
-                {
-                    InternalShape loadedshape = GetShape(newspacecount, splittedLine);
-                    newgroup.Add(loadedshape);
-                }
-                if (ReadedLines.Count > 0)
-                    newspacecount = CheckAmountOfSpaces(ReadedLines.First());
+                newgroup.Add(groupitem);
             }
             return newgroup;
+        }
+
+        private List<ShapeComponent> ReadedLinesToShapes(int spaces = 0)
+        {
+            List<string> texts = null; 
+            List<ShapeComponent> loadeshapes = new List<ShapeComponent>();
+            while (ReadedLines.Count > 0 && CheckAmountOfSpaces(ReadedLines.First()) == spaces)
+            {
+                List<string> splittedLines = ReadedLines.First().Split(' ').ToList();
+                List<string> items = splittedLines.GetRange(spaces, splittedLines.Count() - spaces);
+                ReadedLines.Remove(ReadedLines.First());
+                ShapeComponent loadedshape = null;
+                if (items.First() == "group")
+                {
+                    loadedshape = GetGroup(spaces + 3);
+                }
+                else if (items.First() == InternalEllipse.getInstance().GetName())
+                {
+                    loadedshape = InternalShape.Load(InternalEllipse.getInstance(), items);
+                }
+                else if (items.First() == InternalRectangle.getInstance().GetName())
+                {
+                    loadedshape = InternalShape.Load(InternalRectangle.getInstance(), items);
+                }
+                else if (items.First() == "ornament")
+                {
+                    if (texts == null)
+                    {
+                        texts = new List<string>() { "", "", "", "" };
+                    }
+                    texts[TextDecorator.GetLocation((TextDecorator.TextLocations)Enum.Parse(typeof(TextDecorator.TextLocations), items[1]))] = items[2];
+                }
+                if (texts != null && loadedshape != null)
+                {
+                    loadeshapes.Add(new TextDecorator(loadedshape, texts));
+                    texts = null;
+                }
+                else if (loadedshape != null)
+                {
+                    loadeshapes.Add(loadedshape);
+                }
+            }
+            return loadeshapes;
         }
 
         public List<string> FileContentToList(string fileContent)

@@ -45,9 +45,20 @@ namespace DrawApp.classes
             return Strategy.GetGeometry(Location.X, Location.Y, Width, Height);
         }
 
-        public Geometry GetGeometry(double x = 0, double y = 0, double width = 5, double height = 5)
+        public override Geometry GetGeometry(double x = 0, double y = 0, double width = 5, double height = 5)
         {
             return Strategy.GetGeometry(x,y,width,height);
+        }
+
+        public static InternalShape Load(IStrategy strategy, List<string> items)
+        {
+            InternalShape InternalShape = new InternalShape(strategy)
+            {
+                Location = new Point(Convert.ToDouble(items[1]), Convert.ToDouble(items[2])),
+                Width = Convert.ToDouble(items[3]),
+                Height = Convert.ToDouble(items[4])
+            };
+            return InternalShape;
         }
 
         //public Point Location { get; set; }

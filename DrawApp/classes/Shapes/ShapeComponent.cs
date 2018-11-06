@@ -15,6 +15,7 @@ namespace DrawApp.classes
         public abstract void Remove(ShapeComponent component);
         public abstract bool Contains(ShapeComponent component);
         public abstract void Save(SaveVisitor visitor);
+        public abstract Geometry GetGeometry(double x = 0, double y = 0, double width = 5, double height = 5);
         public enum MousePositionType
         {
             None, Body, UL, UR, DR, DL, R, L, T, B

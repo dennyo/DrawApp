@@ -54,12 +54,12 @@ namespace DrawApp.classes.Commands
             {
                 Text = new TextDecorator(canvasshape, inputDialog.Texts);
 
-                canvas.Shapes.Add(Text);
-                canvas.Children.Add(Text);
-                canvas.SetNewShape(Text, Text.Location.X, Text.Location.Y);
-
                 canvas.Shapes.Remove(canvasshape);
                 canvas.Children.Remove(canvasshape);
+
+                canvas.Shapes.Add(Text);
+                canvas.Children.Add(Text);
+                canvas.SetNewShape(Text, Text.ShapeComponent.Location.X, Text.ShapeComponent.Location.Y);
             }
         }
 

@@ -10,5 +10,6 @@ namespace DrawApp.classes
     {
         void Visit(InternalShape shape);
         void Visit(ShapeGroup group);
+        void Visit(TextDecorator textDecorator);
     }
 }

@@ -11,13 +11,15 @@ namespace DrawApp.classes
 {
     public class TextDecorator : ComponentDecorator
     {
+        public enum TextLocations
+        {
+            top, right, bottom, left
+        };
         public List<string> Texts { get; set; }
+
         public TextDecorator(ShapeComponent shapeComponent, List<string> texts) : base(shapeComponent)
         {
-            //Stroke = Brushes.LightBlue;
             Fill = Brushes.DarkRed;
-            //Stretch = Stretch.Fill;
-            //Location = shapeComponent.Location;
             Texts = texts;
         }
 
@@ -46,7 +48,24 @@ namespace DrawApp.classes
 
         public override void Save(SaveVisitor visitor)
         {
-            throw new NotImplementedException();
+            visitor.Visit(this);
+            ShapeComponent.Save(visitor);
+        }
+
+        public static int GetLocation(TextLocations location)
+        {
+            switch (location)
+            {
+                case TextLocations.top:
+                    return 0;
+                case TextLocations.right:
+                    return 1;
+                case TextLocations.bottom:
+                    return 2;
+                case TextLocations.left:
+                    return 3;
+            }
+            return -1;
         }
 
         public override Geometry GetGeometry()
@@ -79,9 +98,14 @@ namespace DrawApp.classes
                  CultureInfo.CurrentCulture,
                  FlowDirection.LeftToRight,
                  new Typeface("Tahoma"),
-                 80,
+                 20,
                  Brushes.Black);
             return text;
+        }
+
+        public override Geometry GetGeometry(double x = 0, double y = 0, double width = 5, double height = 5)
+        {
+            return GetGeometry();
         }
     }
 }

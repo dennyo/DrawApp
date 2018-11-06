@@ -14,8 +14,6 @@ namespace DrawApp.classes
 
         public GeometryGroup Geometry { get; set; }
 
-        public Point LocationG { get; set; }
-
         protected override Geometry DefiningGeometry
         {
             get
@@ -26,22 +24,17 @@ namespace DrawApp.classes
 
         private void SetNewGeometry()
         {
-            Geometry = new GeometryGroup
-            {
-                FillRule = FillRule.EvenOdd
-            };
+            Geometry = new GeometryGroup();
             foreach (ShapeComponent component in Shapes)
             {
                 if (component is InternalShape shape)
                 {
-                    Geometry.Children.Add(shape.GetGeometry(shape.Location.X - LocationG.X, shape.Location.Y - LocationG.Y, shape.Width, shape.Height));
+                    Geometry.Children.Add(shape.GetGeometry(shape.Location.X - Location.X, shape.Location.Y - Location.Y, shape.Width, shape.Height));
                 }
                 else if (component is ShapeGroup group)
                 {
-                    //GeometryGroup a = GetGroupGeometry(group);
                     foreach (var item in group.Geometry.Children)
                     {
-                        //Geometry.Children.Add(item.GetGeometry(shape.Location.X - LocationG.X, shape.Location.Y - LocationG.Y, shape.Width, shape.Height));
                         Geometry.Children.Add(item);
                     }
                 }
@@ -55,34 +48,11 @@ namespace DrawApp.classes
             }
         }
 
-        //private GeometryGroup GetGroupGeometry(ShapeGroup group)
-        //{
-        //    GeometryGroup = new GeometryGroup();
-        //    foreach (ShapeComponent component in Shapes)
-        //    {
-        //        if (component is InternalShape shape)
-        //        {
-        //            Geometry.Children.Add(shape.GetGeometry(shape.Location.X - LocationG.X, shape.Location.Y - LocationG.Y, shape.Width, shape.Height));
-        //        }
-        //        else if (component is ShapeGroup group)
-        //        {
-        //            GeometryGroup a = GetGroupGeometry(group);
-        //            foreach (var item in group.Geometry.Children)
-        //            {
-        //                Geometry.Children.Add(item.GetGeometry(shape.Location.X - LocationG.X, shape.Location.Y - LocationG.Y, shape.Width, shape.Height));
-        //                //Geometry.Children.Add(item);
-        //            }
-        //        }
-        //    }
-        //    return GeometryGroup
-        //}
-
         public ShapeGroup()
         {
-            LocationG = new Point(int.MaxValue, int.MaxValue);
             Location = new Point(int.MaxValue, int.MaxValue);
             Shapes = new List<ShapeComponent>();
-            Fill = Brushes.LightBlue;
+            Fill = Brushes.DarkBlue;
         }
 
         public override void Add(ShapeComponent component)
@@ -95,14 +65,6 @@ namespace DrawApp.classes
             if (Location.Y > component.Location.Y)
             {
                 Location = new Point(Location.X, component.Location.Y);
-            }
-            if (LocationG.X > component.Location.X)
-            {
-                LocationG = new Point(component.Location.X, LocationG.Y);
-            }
-            if (LocationG.Y > component.Location.Y)
-            {
-                LocationG = new Point(LocationG.X, component.Location.Y);
             }
             SetNewGeometry();
         }
@@ -131,6 +93,11 @@ namespace DrawApp.classes
         public override Geometry GetGeometry()
         {
             return Geometry;
+        }
+
+        public override Geometry GetGeometry(double x = 0, double y = 0, double width = 5, double height = 5)
+        {
+            return GetGeometry();
         }
     }
 }
