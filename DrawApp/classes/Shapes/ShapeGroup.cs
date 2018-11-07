@@ -36,11 +36,11 @@ namespace DrawApp.classes
                 {
                     if (group.Location.X > Location.X)
                     {
-                        group.Location = new Point((group.Location.X - (group.Location.X - Location.X)) + 2, group.Location.Y);
+                        group.Location = new Point(Location.X + 0.0001, group.Location.Y);
                     }
                     if (group.Location.Y > Location.Y)
                     {
-                        group.Location = new Point(group.Location.X, (group.Location.Y - (group.Location.Y - Location.Y)) +2);
+                        group.Location = new Point(group.Location.X, Location.Y + 0.0001);
                     }
                     if (group.Location.X > Location.X || group.Location.Y > Location.Y)
                     {
@@ -111,15 +111,15 @@ namespace DrawApp.classes
             SetNewGeometry();
         }
 
-        public void Refresh(Point oldLocation)
-        {
-            double x = Location.X - oldLocation.X;
-            double y = Location.Y - oldLocation.Y;
-            foreach (ShapeComponent component in Shapes)
-            {
-                SetNewGeometry();
-            }
-        }
+        //public void Refresh(Point oldLocation)
+        //{
+        //    double x = Location.X - oldLocation.X;
+        //    double y = Location.Y - oldLocation.Y;
+        //    foreach (ShapeComponent component in Shapes)
+        //    {
+        //        SetNewGeometry();
+        //    }
+        //}
 
         public void Remove(ShapeComponent component)
         {

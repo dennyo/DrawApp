@@ -64,14 +64,17 @@ namespace DrawApp.classes
                     FormattedText formattedText = NewFormattedText(Texts[a]);
                     double locx = 0;
                     double locy = 0;
+                    Rect bounds = ShapeComponent.GetGeometry().GetRenderBounds(new Pen(),0,ToleranceType.Absolute);
+                    double width = bounds.Width;
+                    double height = bounds.Height;
                     if (a % 2 == 0)
-                        locx = (ShapeComponent.Width / 2) - (formattedText.Width / 2);
+                        locx = (width / 2) - (formattedText.Width / 2);
                     if (a % 2 == 1)
-                        locy = (ShapeComponent.Height / 2) - (formattedText.Height / 2);
+                        locy = (height / 2) - (formattedText.Height / 2);
                     if (a % 4 == 2)
-                        locy = ShapeComponent.Height - formattedText.Height;
+                        locy = width - formattedText.Height;
                     if (a % 4 == 1)
-                        locx = ShapeComponent.Width - formattedText.Width;
+                        locx = height - formattedText.Width;
                     group.Children.Add(formattedText.BuildGeometry(new Point(locx, locy)));
                 }
             }
