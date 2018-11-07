@@ -105,7 +105,6 @@ C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\bin\Debug\ko\System.Windows.Inte
 C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\bin\Debug\ru\System.Windows.Interactivity.resources.dll
 C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
-C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\obj\Debug\DrawApp.csprojAssemblyReference.cache
 C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\obj\Debug\InputDialog.baml
 C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\obj\Debug\InputDialog.g.cs
 C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\obj\Debug\MainWindow.g.cs

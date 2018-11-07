@@ -25,6 +25,7 @@ namespace DrawApp.classes
         private void SetNewGeometry()
         {
             Geometry = new GeometryGroup();
+            //List<ShapeComponent> Nongroupshapes = GetShapesOfGroup();
             foreach (ShapeComponent component in Shapes)
             {
                 if (component is InternalShape shape)
@@ -33,35 +34,37 @@ namespace DrawApp.classes
                 }
                 else if (component is ShapeGroup group)
                 {
-                    //Point oldLocation = group.Location;
-                    //if (group.Location.X > Location.X || group.Location.Y > Location.Y)
-                    //{
-                    //    group.SetNewGeometry();
-                    //}
-                    //if (group.Location.X > Location.X)
-                    //{
-                    //    group.Location = new Point(group.Location.X - Location.X, group.Location.Y);
-                    //}
-                    //if (group.Location.Y > Location.Y)
-                    //{
-                    //    group.Location = new Point(group.Location.X, group.Location.Y - Location.Y);
-                    //}
-                    //group.Location = new Point(group.Location.X - Location.X, group.Location.Y - Location.Y);
-                    foreach (InternalShape ishape in group.GetShapes())
+                    if (group.Location.X > Location.X)
                     {
-                        Geometry.Children.Add(ishape.GetGeometry(ishape.Location.X - Location.X, ishape.Location.Y - Location.Y, ishape.Width, ishape.Height));
+                        group.Location = new Point((group.Location.X - (group.Location.X - Location.X)) + 2, group.Location.Y);
                     }
-                    //foreach (var item in group.Geometry.Children)
-                    //{
-                    //    if (item is InternalShape shape)
-                    //    {
-
-                    //    }
-                    //    Geometry.Children.Add(item);
-                    //}
+                    if (group.Location.Y > Location.Y)
+                    {
+                        group.Location = new Point(group.Location.X, (group.Location.Y - (group.Location.Y - Location.Y)) +2);
+                    }
+                    if (group.Location.X > Location.X || group.Location.Y > Location.Y)
+                    {
+                        group.SetNewGeometry();
+                    }
+                    foreach (var item in group.Geometry.Children)
+                    {
+                        Geometry.Children.Add(item);
+                    }
                 }
                 else if (component is TextDecorator decorator)
                 {
+                    //if (decorator.Location.X > Location.X)
+                    //{
+                    //    decorator.Location = new Point((decorator.Location.X - (decorator.Location.X - Location.X)) + 2, decorator.Location.Y);
+                    //}
+                    //if (decorator.Location.Y > Location.Y)
+                    //{
+                    //    decorator.Location = new Point(decorator.Location.X, (decorator.Location.Y - (decorator.Location.Y - Location.Y)) + 2);
+                    //}
+                    //if (decorator.Location.X > Location.X || decorator.Location.Y > Location.Y)
+                    //{
+                    //    decorator.SetNewGeometry();
+                    //}
                     foreach (var item in decorator.GetGeometryGroup().Children)
                     {
                         Geometry.Children.Add(item);
@@ -70,22 +73,22 @@ namespace DrawApp.classes
             }
         }
 
-        public List<ShapeComponent> GetShapes()
-        {
-            List<ShapeComponent> list = new List<ShapeComponent>();
-            foreach (ShapeComponent shape in Shapes)
-            {
-                if (shape is ShapeGroup group)
-                {
-                    foreach (ShapeComponent component in group.GetShapes())
-                    {
-                        list.Add(component);
-                    }
-                }
-                list.Add(shape);
-            }
-            return list;
-        }
+        //public List<ShapeComponent> GetShapesOfGroup()
+        //{
+        //    List<ShapeComponent> list = new List<ShapeComponent>();
+        //    foreach (ShapeComponent shape in Shapes)
+        //    {
+        //        if (shape is ShapeGroup group)
+        //        {
+        //            list.AddRange(group.GetShapesOfGroup());
+        //        }
+        //        else
+        //        {
+        //            list.Add(shape);
+        //        }
+        //    }
+        //    return list;
+        //}
 
         public ShapeGroup()
         {

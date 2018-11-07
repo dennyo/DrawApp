@@ -73,7 +73,7 @@ namespace DrawApp.classes
                     {
                         texts = new List<string>() { "", "", "", "" };
                     }
-                    texts[TextDecorator.GetLocation((TextDecorator.TextLocations)Enum.Parse(typeof(TextDecorator.TextLocations), items[1]))] = items[2];
+                    texts[TextDecorator.GetLocation((TextDecorator.TextLocations)Enum.Parse(typeof(TextDecorator.TextLocations), items[1]))] = items[2].Trim('"');
                 }
                 if (texts != null && loadedshape != null)
                 {
