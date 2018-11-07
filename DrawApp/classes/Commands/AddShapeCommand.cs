@@ -19,6 +19,8 @@ namespace DrawApp.classes
             IsCompleted = false;
         }
 
+        public abstract InternalShape GetShape();
+
         public void ExecuteMouseDown(InternalCanvas canvas)
         {
             startPoint = Mouse.GetPosition(canvas);
@@ -26,8 +28,6 @@ namespace DrawApp.classes
             canvas.SetNewShape(newshape, startPoint.X, startPoint.Y);
             canvas.Children.Add(newshape);
         }
-
-        public abstract InternalShape GetShape();
 
         public void ExecuteMouseMove(InternalCanvas canvas)
         {
@@ -52,12 +52,6 @@ namespace DrawApp.classes
             IsCompleted = true;
         }
 
-        public void Undo(InternalCanvas canvas)
-        {
-            canvas.Children.Remove(newshape);
-            canvas.Shapes.Remove(newshape);
-        }
-
         public void Execute(InternalCanvas canvas)
         {
             if (Mouse.LeftButton == MouseButtonState.Pressed && newshape == null)
@@ -72,6 +66,18 @@ namespace DrawApp.classes
             {
                 ExecuteMouseUp(canvas);
             }
+        }
+
+        public void Undo(InternalCanvas canvas)
+        {
+            canvas.Children.Remove(newshape);
+            canvas.Shapes.Remove(newshape);
+        }
+
+        public void Redo(InternalCanvas canvas)
+        {
+            canvas.Children.Add(newshape);
+            canvas.Shapes.Add(newshape);
         }
     }
 }

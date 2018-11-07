@@ -61,6 +61,7 @@
     <Compile Include="classes\Commands\AddGroupCommand.cs" />
     <Compile Include="classes\Commands\AddTextCommand.cs" />
     <Compile Include="classes\Interfaces\Command.cs" />
+    <Compile Include="classes\IOCommand.cs" />
     <Compile Include="classes\Interfaces\IStrategy.cs" />
     <Compile Include="classes\Shapes\ShapeComponent.cs" />
     <Compile Include="classes\Shapes\InternalCanvas.cs" />

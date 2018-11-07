@@ -40,7 +40,7 @@ namespace DrawAppViewModel
             get; set;
         }
 
-        public CurrentAction Setting
+        public CurrentSetting Setting
         {
             get;
             set;
@@ -66,6 +66,12 @@ namespace DrawAppViewModel
         }
 
         public ICommand UndoCommand
+        {
+            get;
+            internal set;
+        }
+
+        public ICommand RedoCommand
         {
             get;
             internal set;
@@ -123,30 +129,31 @@ namespace DrawAppViewModel
         {
             Coordinates = new Test("car");
             Actions = new Actions();
-            Setting = CurrentAction.Selection;
-            Canvas = new InternalCanvas();
+            Setting = CurrentSetting.Selection;
+            Canvas = InternalCanvas.getInstance();
             SelectedShapes = new List<ShapeComponent>();
-            RectangleCommand = new RelayCommand(SetRectangleSetting);
-            CircleCommand = new RelayCommand(SetCircleSetting);
-            SelectCommand = new RelayCommand(SetSelectSetting);
-            MouseDownCommand = new RelayCommand(MouseDown);
+            RectangleCommand = new RelayCommand(x => SetSetting(CurrentSetting.Rectangle));
+            CircleCommand = new RelayCommand(x => SetSetting(CurrentSetting.Circle));
+            SelectCommand = new RelayCommand(x => SetSetting(CurrentSetting.Selection));
+            GroupCommand = new RelayCommand(x => SetSetting(CurrentSetting.Group));
+            TextCommand = new RelayCommand(x => SetSetting(CurrentSetting.Text));
+            MouseDownCommand = new RelayCommand(MouseDown); 
             MouseUpCommand = new RelayCommand(MouseUp);
             MouseMoveCommand = new RelayCommand(MouseMove);
             SaveCommand = new RelayCommand(SaveFile);
             LoadCommand = new RelayCommand(LoadFile);
             UndoCommand = new RelayCommand(Undo);
-            GroupCommand = new RelayCommand(SetGroupSetting);
-            TextCommand = new RelayCommand(SetTextSetting);
+            RedoCommand = new RelayCommand(Redo);
         }
 
-        private void SetTextSetting(object obj)
+        private void SetSetting(CurrentSetting setting)
         {
-            Setting = CurrentAction.Text;
+            Setting = setting;
         }
 
-        private void SetGroupSetting(object obj)
+        private void Redo(object obj)
         {
-            Setting = CurrentAction.Group;
+            Actions.Redo(Canvas);
         }
 
         private void Undo(object obj)
@@ -159,41 +166,26 @@ namespace DrawAppViewModel
             Actions.Execute(Canvas, new LoadCommand());
         }
 
-        public void SetRectangleSetting(object obj)
-        {
-            Setting = CurrentAction.Rectangle;
-        }
-
-        public void SetCircleSetting(object obj)
-        {
-            Setting = CurrentAction.Circle;
-        }
-
-        public void SetSelectSetting(object obj)
-        {
-            Setting = CurrentAction.Selection;
-        }
-
         public void MouseDown(object obj)
         {
-            if (Setting == CurrentAction.Selection && Mouse.LeftButton == MouseButtonState.Pressed)
+            if (Setting == CurrentSetting.Selection && Mouse.LeftButton == MouseButtonState.Pressed)
             {
                 Actions.Execute(Canvas, new MoveShapeCommand());
             }
-            else if (Setting == CurrentAction.Rectangle)
+            else if (Setting == CurrentSetting.Rectangle)
             {
                 Actions.Execute(Canvas, new AddRectangleCommand());
             }
-            else if (Setting == CurrentAction.Circle)
+            else if (Setting == CurrentSetting.Circle)
             {
                 Actions.Execute(Canvas, new AddCircleCommand());
             }
-            else if (Setting == CurrentAction.Group)
+            else if (Setting == CurrentSetting.Group)
             {
                 if (Actions.IsLastCommandCompleted())
                     Actions.Execute(Canvas, new AddGroupCommand());
             }
-            else if (Setting == CurrentAction.Text)
+            else if (Setting == CurrentSetting.Text)
             {
                 Actions.Execute(Canvas, new AddTextCommand());
             }

@@ -31,21 +31,6 @@ namespace DrawApp.classes
             return group;
         }
 
-        public override void Add(ShapeComponent component)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool Contains(ShapeComponent component)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Remove(ShapeComponent component)
-        {
-            throw new NotImplementedException();
-        }
-
         public override void Save(SaveVisitor visitor)
         {
             visitor.Visit(this);
@@ -79,13 +64,13 @@ namespace DrawApp.classes
                     double locx = 0;
                     double locy = 0;
                     if (a % 2 == 0)
-                        locx = (ShapeComponent.Width / 2) - (formattedText.Width / 2);
+                        locx = (ShapeComponent.ActualWidth / 2) - (formattedText.Width / 2);
                     if (a % 2 == 1)
-                        locy = (ShapeComponent.Height / 2) - (formattedText.Height / 2);
+                        locy = (ShapeComponent.ActualHeight / 2) - (formattedText.Height / 2);
                     if (a % 4 == 2)
-                        locy = ShapeComponent.Height - formattedText.Height;
+                        locy = ShapeComponent.ActualHeight - formattedText.Height;
                     if (a % 4 == 1)
-                        locx = ShapeComponent.Width - formattedText.Width;
+                        locx = ShapeComponent.ActualWidth - formattedText.Width;
                     group.Children.Add(formattedText.BuildGeometry(new Point(locx, locy)));
                 }
             }

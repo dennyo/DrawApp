@@ -9,7 +9,7 @@ namespace DrawApp.classes.Commands
     class AddTextCommand : Command
     {
         public bool IsCompleted { get; set; }
-        public TextDecorator Text { get; set; }
+        public TextDecorator TextOrnament { get; set; }
         public ShapeComponent OldShapeComponent { get; set; }
 
         public AddTextCommand()
@@ -52,14 +52,14 @@ namespace DrawApp.classes.Commands
             InputDialog inputDialog = new InputDialog();
             if (inputDialog.ShowDialog() == true)
             {
-                Text = new TextDecorator(canvasshape, inputDialog.Texts);
+                TextOrnament = new TextDecorator(canvasshape, inputDialog.Texts);
 
                 canvas.Shapes.Remove(canvasshape);
                 canvas.Children.Remove(canvasshape);
 
-                canvas.Shapes.Add(Text);
-                canvas.Children.Add(Text);
-                canvas.SetNewShape(Text, Text.ShapeComponent.Location.X, Text.ShapeComponent.Location.Y);
+                canvas.Shapes.Add(TextOrnament);
+                canvas.Children.Add(TextOrnament);
+                canvas.SetNewShape(TextOrnament, TextOrnament.ShapeComponent.Location.X, TextOrnament.ShapeComponent.Location.Y);
             }
         }
 
@@ -68,10 +68,29 @@ namespace DrawApp.classes.Commands
         {
             if (!(OldShapeComponent is TextDecorator))
             {
-                canvas.Shapes.Remove(Text);
-                canvas.Children.Remove(Text);
+                canvas.Shapes.Remove(TextOrnament);
+                canvas.Children.Remove(TextOrnament);
                 canvas.Shapes.Add(OldShapeComponent);
                 canvas.Children.Add(OldShapeComponent);
+            }
+            else if (OldShapeComponent is TextDecorator textshape)
+            {
+                //canvas.Shapes.Remove(Text);
+                //canvas.Children.Remove(Text);
+                //canvas.Shapes.Add(OldShapeComponent);
+                //canvas.Children.Add(OldShapeComponent);
+                throw new NotImplementedException();
+            }
+        }
+
+        public void Redo(InternalCanvas canvas)
+        {
+            if (!(OldShapeComponent is TextDecorator))
+            {
+                canvas.Shapes.Add(TextOrnament);
+                canvas.Children.Add(TextOrnament);
+                canvas.Shapes.Remove(OldShapeComponent);
+                canvas.Children.Remove(OldShapeComponent);
             }
             else if (OldShapeComponent is TextDecorator textshape)
             {

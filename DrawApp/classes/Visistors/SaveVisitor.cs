@@ -13,7 +13,7 @@ namespace DrawApp
         public string spaces { get; set; }
         public void Visit(ShapeGroup group)
         {
-            string line = string.Format("{0}group", spaces);
+            string line = string.Format("{0}group {1}", spaces, group.Shapes.Count());
             stringBuilder.AppendLine(line);
         }
 

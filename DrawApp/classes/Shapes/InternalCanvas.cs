@@ -18,10 +18,17 @@ namespace DrawApp
     {
         public List<ShapeComponent> Shapes { get; set; }
 
-        public InternalCanvas()
+        private static InternalCanvas instance = new InternalCanvas();
+
+        private InternalCanvas()
         {
             Shapes = new List<ShapeComponent>();
             Background = Brushes.LightSteelBlue;
+        }
+
+        public static InternalCanvas getInstance()
+        {
+            return instance;
         }
 
         public void AddShape(ShapeComponent newshape)
@@ -94,6 +101,5 @@ namespace DrawApp
             // Display the desired cursor.
             if (Cursor != desired_cursor) Cursor = desired_cursor;
         }
-
     }
 }

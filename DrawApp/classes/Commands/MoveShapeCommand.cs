@@ -15,7 +15,10 @@ namespace DrawApp.classes
         private Point oldLocation;
         private double oldHeight;
         private double oldWidth;
-        private Point startPoint;
+        private Point mousePosition;
+        private Point newLocation;
+        private double newHeight;
+        private double newWidth;
         private ShapeComponent shape;
         public bool IsCompleted { get; set; }
 
@@ -42,12 +45,12 @@ namespace DrawApp.classes
 
         private void ExecuteMouseDown(InternalCanvas canvas)
         {
-            startPoint = Mouse.GetPosition(canvas);
+            mousePosition = Mouse.GetPosition(canvas);
             foreach (ShapeComponent canvasshape in canvas.Shapes)
             {
                 if (canvasshape.IsMouseOver)
                 {
-                    canvasshape.MousePosition = canvasshape.GetMousePositionType(startPoint);
+                    canvasshape.MousePosition = canvasshape.GetMousePositionType(mousePosition);
                     shape = canvasshape;
                     oldLocation = canvas.GetPositionOfShapeInCanvas(shape);
                     oldHeight = shape.Height;
@@ -62,27 +65,28 @@ namespace DrawApp.classes
         {
             // See how much the mouse has moved.
             Point point = Mouse.GetPosition(canvas);
-            double offset_x = point.X - startPoint.X;
-            double offset_y = point.Y - startPoint.Y;
+            double offset_x = point.X - mousePosition.X;
+            double offset_y = point.Y - mousePosition.Y;
 
             // Get the rectangle's current position.
-            double new_x, new_y, new_width, new_height;
-            GetNewLocationAndSize(shape, offset_x, offset_y, out new_x, out new_y, out new_width, out new_height);
+            double new_x, new_y;
+            GetNewLocationAndSize(shape, offset_x, offset_y, out new_x, out new_y, out newWidth, out newHeight);
 
             // Don't use negative width or height.
-            if ((new_width > 0) && (new_height > 0))
+            if ((newWidth > 0) && (newHeight > 0))
             {
                 // Update the rectangle.
                 //SetLeftOfShape(canvas, shape, new_x);
                 //SetTopOfShape(canvas, shape, new_y);
                 canvas.SetNewShape(shape, SetLeftOfShape(canvas, shape, new_x), SetTopOfShape(canvas, shape, new_y));
-                shape.Width = new_width;
-                shape.Height = new_height;
+                shape.Width = newWidth;
+                shape.Height = newHeight;
 
                 // Save the mouse's new location.
-                startPoint = point;
+                mousePosition = point;
             }
-            shape.Location = canvas.GetPositionOfShapeInCanvas(shape);
+            newLocation = canvas.GetPositionOfShapeInCanvas(shape);
+            shape.Location = newLocation;
             //SetMouseCursor(shape);
         }
 
@@ -91,13 +95,6 @@ namespace DrawApp.classes
             //shape.Selected = false;
             shape.Stroke = null;
             //Cursor = Cursors.Arrow;
-        }
-
-        public void Undo(InternalCanvas canvas)
-        {
-            shape.Width = oldWidth;
-            shape.Height = oldHeight;
-            canvas.SetNewShape(shape, oldLocation.X, oldLocation.Y);
         }
 
         private double SetTopOfShape(InternalCanvas canvas, ShapeComponent shape, double new_y)
@@ -181,6 +178,22 @@ namespace DrawApp.classes
                     new_height -= offset_y;
                     break;
             }
+        }
+
+        public void Undo(InternalCanvas canvas)
+        {
+            shape.Width = oldWidth;
+            shape.Height = oldHeight;
+            shape.Location = oldLocation;
+            canvas.SetNewShape(shape, oldLocation.X, oldLocation.Y);
+        }
+
+        public void Redo(InternalCanvas canvas)
+        {
+            shape.Width = newWidth;
+            shape.Height = newHeight;
+            shape.Location = newLocation;
+            canvas.SetNewShape(shape, newLocation.X, newLocation.Y);
         }
 
         //private void SetMouseCursor(InternalShape shape)

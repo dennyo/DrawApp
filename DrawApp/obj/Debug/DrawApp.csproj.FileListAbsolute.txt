@@ -91,3 +91,33 @@ C:\Users\Jeroen Jonker\Documents\GitHub\DrawApp\DrawApp\obj\Debug\DrawApp.csproj
 C:\Users\Jeroen Jonker\Documents\GitHub\DrawApp\DrawApp\obj\Debug\DrawApp.csproj.CopyComplete
 C:\Users\Jeroen Jonker\Documents\GitHub\DrawApp\DrawApp\obj\Debug\DrawApp.exe
 C:\Users\Jeroen Jonker\Documents\GitHub\DrawApp\DrawApp\obj\Debug\DrawApp.pdb
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\bin\Debug\DrawApp.exe.config
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\bin\Debug\DrawApp.exe
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\bin\Debug\DrawApp.pdb
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\bin\Debug\de\System.Windows.Interactivity.resources.dll
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\bin\Debug\en\System.Windows.Interactivity.resources.dll
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\bin\Debug\es\System.Windows.Interactivity.resources.dll
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\bin\Debug\fr\System.Windows.Interactivity.resources.dll
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\bin\Debug\it\System.Windows.Interactivity.resources.dll
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\bin\Debug\ja\System.Windows.Interactivity.resources.dll
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\bin\Debug\ko\System.Windows.Interactivity.resources.dll
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\bin\Debug\ru\System.Windows.Interactivity.resources.dll
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\obj\Debug\DrawApp.csprojAssemblyReference.cache
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\obj\Debug\InputDialog.baml
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\obj\Debug\InputDialog.g.cs
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\obj\Debug\MainWindow.g.cs
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\obj\Debug\App.g.cs
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\obj\Debug\DrawApp_MarkupCompile.cache
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\obj\Debug\DrawApp_MarkupCompile.lref
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\obj\Debug\MainWindow.baml
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\obj\Debug\DrawApp.g.resources
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\obj\Debug\DrawApp.Properties.Resources.resources
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\obj\Debug\DrawApp.csproj.GenerateResource.cache
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\obj\Debug\DrawApp.csproj.CoreCompileInputs.cache
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\obj\Debug\DrawApp.csproj.CopyComplete
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\obj\Debug\DrawApp.exe
+C:\Users\Jeroe\Documents\GitHub\DrawApp\DrawApp\obj\Debug\DrawApp.pdb

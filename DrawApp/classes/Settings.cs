@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DrawApp.classes
 {
-    public enum CurrentAction
+    public enum CurrentSetting
     {
         Selection, Rectangle, Circle, Group, Save, Load,
         Text

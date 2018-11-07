@@ -10,13 +10,12 @@ using System.Windows;
 
 namespace DrawApp.classes
 {
-    class LoadCommand : Command
+    class LoadCommand : IOCommand
     {
-        public bool IsCompleted { get; set; }
         private List<string> ReadedLines { get; set; }
         private List<ShapeComponent> LoadedShapes { get; set; }
 
-        public void Execute(InternalCanvas canvas)
+        public override void Execute(InternalCanvas canvas)
         {
             LoadedShapes = new List<ShapeComponent>();
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -112,11 +111,6 @@ namespace DrawApp.classes
                     break;
             }
             return counter;
-        }
-
-        public void Undo(InternalCanvas canvas)
-        {
-            throw new NotImplementedException();
         }
     }
 }

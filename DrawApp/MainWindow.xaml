@@ -29,9 +29,10 @@
             <Button Command="{Binding CircleCommand}" Content="Circle"/>
             <Button Command="{Binding RectangleCommand}" Content="Rectangle"/>
             <Button Command="{Binding SelectCommand}" Content="Select"/>
-            <Button Command="{Binding UndoCommand}" Content="Undo"/>
             <Button Command="{Binding GroupCommand}" Content="Group"/>
             <Button Command="{Binding TextCommand}" Content="Text"/>
+            <Button Command="{Binding UndoCommand}" Content="Undo"/>
+            <Button Command="{Binding RedoCommand}" Content="Redo"/>
             <Label Content="{Binding Coordinates.Name, Mode=TwoWay}"/>
         </ToolBar>
         <ContentPresenter Content="{Binding Canvas}" Grid.Row="1">

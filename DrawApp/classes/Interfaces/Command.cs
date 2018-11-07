@@ -10,6 +10,7 @@ namespace DrawApp.classes
     {
         void Execute(InternalCanvas canvas);
         void Undo(InternalCanvas canvas);
+        void Redo(InternalCanvas canvas);
         bool IsCompleted { get; set; }
     }
 }

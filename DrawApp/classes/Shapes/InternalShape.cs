@@ -91,21 +91,6 @@ namespace DrawApp.classes
         //    return MousePositionType.Body;
         //}
 
-        public override void Add(ShapeComponent d)
-        {
-            throw new NotSupportedException();
-        }
-
-        public override void Remove(ShapeComponent d)
-        {
-            throw new NotSupportedException();
-        }
-
-        public override bool Contains(ShapeComponent component)
-        {
-            throw new NotSupportedException();
-        }
-
         public override void Save(SaveVisitor visitor)
         {
             visitor.Visit(this);

@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using DrawApp.classes;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,11 +9,9 @@ using System.Threading.Tasks;
 
 namespace DrawApp.classes
 {
-    class SaveCommand : Command
+    class SaveCommand : IOCommand
     {
-        public bool IsCompleted { get; set; }
-
-        public void Execute(InternalCanvas canvas)
+        public override void Execute(InternalCanvas canvas)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Text file (*.txt)|*.txt|C# file (*.cs)|*.cs";
@@ -26,11 +25,6 @@ namespace DrawApp.classes
                 File.WriteAllText(saveFileDialog.FileName, save.stringBuilder.ToString());
             }
             IsCompleted = true;
-        }
-
-        public void Undo(InternalCanvas canvas)
-        {
-            throw new NotImplementedException();
         }
     }
 }

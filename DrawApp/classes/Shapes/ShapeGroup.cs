@@ -33,10 +33,32 @@ namespace DrawApp.classes
                 }
                 else if (component is ShapeGroup group)
                 {
-                    foreach (var item in group.Geometry.Children)
+                    //Point oldLocation = group.Location;
+                    //if (group.Location.X > Location.X || group.Location.Y > Location.Y)
+                    //{
+                    //    group.SetNewGeometry();
+                    //}
+                    //if (group.Location.X > Location.X)
+                    //{
+                    //    group.Location = new Point(group.Location.X - Location.X, group.Location.Y);
+                    //}
+                    //if (group.Location.Y > Location.Y)
+                    //{
+                    //    group.Location = new Point(group.Location.X, group.Location.Y - Location.Y);
+                    //}
+                    //group.Location = new Point(group.Location.X - Location.X, group.Location.Y - Location.Y);
+                    foreach (InternalShape ishape in group.GetShapes())
                     {
-                        Geometry.Children.Add(item);
+                        Geometry.Children.Add(ishape.GetGeometry(ishape.Location.X - Location.X, ishape.Location.Y - Location.Y, ishape.Width, ishape.Height));
                     }
+                    //foreach (var item in group.Geometry.Children)
+                    //{
+                    //    if (item is InternalShape shape)
+                    //    {
+
+                    //    }
+                    //    Geometry.Children.Add(item);
+                    //}
                 }
                 else if (component is TextDecorator decorator)
                 {
@@ -48,6 +70,23 @@ namespace DrawApp.classes
             }
         }
 
+        public List<ShapeComponent> GetShapes()
+        {
+            List<ShapeComponent> list = new List<ShapeComponent>();
+            foreach (ShapeComponent shape in Shapes)
+            {
+                if (shape is ShapeGroup group)
+                {
+                    foreach (ShapeComponent component in group.GetShapes())
+                    {
+                        list.Add(component);
+                    }
+                }
+                list.Add(shape);
+            }
+            return list;
+        }
+
         public ShapeGroup()
         {
             Location = new Point(int.MaxValue, int.MaxValue);
@@ -55,7 +94,7 @@ namespace DrawApp.classes
             Fill = Brushes.DarkBlue;
         }
 
-        public override void Add(ShapeComponent component)
+        public void Add(ShapeComponent component)
         {
             Shapes.Add(component);
             if (Location.X > component.Location.X)
@@ -69,12 +108,22 @@ namespace DrawApp.classes
             SetNewGeometry();
         }
 
-        public override void Remove(ShapeComponent component)
+        public void Refresh(Point oldLocation)
+        {
+            double x = Location.X - oldLocation.X;
+            double y = Location.Y - oldLocation.Y;
+            foreach (ShapeComponent component in Shapes)
+            {
+                SetNewGeometry();
+            }
+        }
+
+        public void Remove(ShapeComponent component)
         {
             Shapes.Remove(component);
         }
 
-        public override bool Contains (ShapeComponent component)
+        public bool Contains(ShapeComponent component)
         {
             return Shapes.Contains(component);
         }
