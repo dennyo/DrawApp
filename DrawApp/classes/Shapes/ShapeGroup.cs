@@ -53,22 +53,11 @@ namespace DrawApp.classes
                 }
                 else if (component is TextDecorator decorator)
                 {
-                    //if (decorator.Location.X > Location.X)
-                    //{
-                    //    decorator.Location = new Point((decorator.Location.X - (decorator.Location.X - Location.X)) + 2, decorator.Location.Y);
-                    //}
-                    //if (decorator.Location.Y > Location.Y)
-                    //{
-                    //    decorator.Location = new Point(decorator.Location.X, (decorator.Location.Y - (decorator.Location.Y - Location.Y)) + 2);
-                    //}
-                    //if (decorator.Location.X > Location.X || decorator.Location.Y > Location.Y)
-                    //{
-                    //    decorator.SetNewGeometry();
-                    //}
-                    foreach (var item in decorator.GetGeometryGroup().Children)
-                    {
-                        Geometry.Children.Add(item);
-                    }
+                    ShapeComponent decoratedShape = decorator.ShapeComponent;
+                    Geometry.Children.Add(decoratedShape.GetGeometry(decoratedShape.Location.X - Location.X, decoratedShape.Location.Y - Location.Y, decoratedShape.Width, decoratedShape.Height));
+                    Geometry texts = decorator.GetGeometry();
+                    texts.Transform = new TranslateTransform(decoratedShape.Location.X - Location.X, decoratedShape.Location.Y - Location.Y);
+                    Geometry.Children.Add(texts);
                 }
             }
         }
